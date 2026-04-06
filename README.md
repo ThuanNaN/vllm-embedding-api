@@ -1,6 +1,6 @@
 # vllm-embedding-api
 
-High-performance embedding service powered by [vLLM](https://github.com/vllm-project/vllm) for scalable and low-latency vector generation. Exposes an **OpenAI-compatible REST API** so you can drop it in as a local replacement for `openai.Embedding.create`.
+High-performance embedding service powered by [vLLM](https://github.com/vllm-project/vllm) for scalable and low-latency vector generation. Exposes an **OpenAI-compatible REST API** so you can use it as a local replacement for the OpenAI embeddings API.
 
 ---
 
