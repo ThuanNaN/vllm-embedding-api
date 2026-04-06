@@ -8,7 +8,7 @@ High-performance embedding service powered by [vLLM](https://github.com/vllm-pro
 
 - **OpenAI-compatible** – `POST /v1/embeddings` and `GET /v1/models` follow the OpenAI API contract.
 - **vLLM backend** – leverages vLLM's optimised inference engine for high-throughput batch embedding.
-- **Bearer-token auth** – every endpoint is protected by a configurable API key.
+- **Bearer-token auth** – `/v1/*` endpoints are protected by a configurable API key.
 - **Lazy model loading** – the vLLM model is loaded on the first request, so the server starts instantly (even without a GPU in test environments).
 - **Accurate token counts** – uses `tiktoken` (`cl100k_base`) with a whitespace-split fallback.
 - **Health endpoint** – `GET /health` for liveness probes.
