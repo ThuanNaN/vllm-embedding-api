@@ -1,4 +1,4 @@
-name: Generate API Docs
+name: Deploy API Docs
 
 on:
   push:
@@ -7,10 +7,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: gh-pages-deploy
-  cancel-in-progress: true
-
 jobs:
   build-docs:
     runs-on: ubuntu-latest
@@ -18,33 +14,22 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: "3.11"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-
-      - name: Install deps
+      - name: Install Python deps
         run: pip install -r requirements-docs.txt
 
       - name: Export OpenAPI
         run: python scripts/export_openapi.py
 
-      - name: Move docs
-        run: cp openapi.json docs/
-
-      - name: Download Swagger UI assets
+      - name: Generate Redoc HTML
         run: |
-          mkdir -p docs/vendor/swagger-ui-dist
-          npm install swagger-ui-dist@5.18.2
-          cp node_modules/swagger-ui-dist/swagger-ui.css docs/vendor/swagger-ui-dist/
-          cp node_modules/swagger-ui-dist/swagger-ui-bundle.js docs/vendor/swagger-ui-dist/
+          npx redoc-cli build openapi.json -o docs/index.html
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
