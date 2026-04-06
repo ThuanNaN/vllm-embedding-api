@@ -7,15 +7,19 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: true
+
 jobs:
   build-docs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -28,8 +32,15 @@ jobs:
       - name: Move docs
         run: cp openapi.json docs/
 
+      - name: Download Swagger UI assets
+        run: |
+          mkdir -p docs/vendor/swagger-ui-dist
+          npm install swagger-ui-dist@5.18.2
+          cp node_modules/swagger-ui-dist/swagger-ui.css docs/vendor/swagger-ui-dist/
+          cp node_modules/swagger-ui-dist/swagger-ui-bundle.js docs/vendor/swagger-ui-dist/
+
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
