@@ -235,4 +235,4 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
 
 ## License
 
-This project is open-source. See the repository for license details.
+No license has been specified for this repository yet.
