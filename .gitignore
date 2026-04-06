@@ -28,3 +28,6 @@ htmlcov/
 .idea/
 .vscode/
 *.swp
+
+# Generated docs artifact
+openapi.json
