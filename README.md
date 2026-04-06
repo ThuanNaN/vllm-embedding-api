@@ -2,6 +2,18 @@
 
 High-performance embedding service powered by [vLLM](https://github.com/vllm-project/vllm) for scalable and low-latency vector generation. Exposes an **OpenAI-compatible REST API** so you can use it as a local replacement for the OpenAI embeddings API.
 
+> **⚠️ When to use this repository**
+>
+> Use this repository **only** for embedding models that are **not natively supported** by vLLM.
+> vLLM has built-in, first-class support for many popular embedding models (e.g. `BAAI/bge-*`, `sentence-transformers/*`, `intfloat/e5-*`).
+> If your model is on the [vLLM supported models list](https://docs.vllm.ai/en/latest/models/supported_models.html), you should use vLLM's native embedding API directly:
+>
+> ```bash
+> vllm serve <your-model> --task embed
+> ```
+>
+> This repository exists specifically for models that cannot be served directly by vLLM's built-in embedding pipeline.
+
 ---
 
 ## Features
